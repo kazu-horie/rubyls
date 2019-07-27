@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Kazuki Horie"]
   spec.email         = ["kazukihorie.jp@gmail.com"]
 
-  spec.summary       = "Simple ls command."
-  spec.description   = "simple ls command implemented by Ruby"
+  spec.summary       = "Simple ls-command."
+  spec.description   = "simple ls-command implemented by Ruby"
   spec.homepage      = "https://github.com/kazu-horie/rubyls.git"
   spec.license       = "MIT"
 
