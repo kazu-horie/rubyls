@@ -3,7 +3,8 @@ require "rubyls/version"
 module Rubyls
   class Error < StandardError; end
 
-  def self.ls(path)
+  def self.ls(path = '.')
+    path.nil?
     begin
       if RUBY_VERSION.to_f >= 2.5
         Dir.children(path).each do |c|
@@ -16,7 +17,7 @@ module Rubyls
       end
       puts
     rescue Errno::ENOENT
-      puts "ls: #{ARGV[0]}: No such file or directory"
+      puts "ls: #{path}: No such file or directory"
     end
   end
 end
