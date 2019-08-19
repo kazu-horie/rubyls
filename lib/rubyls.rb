@@ -5,16 +5,10 @@ module Rubyls
 
   def self.ls(path)
     begin
-      if RUBY_VERSION.to_f >= 2.5
-        Dir.children(path).each do |c|
-          print "#{c}\t"
-        end
-      else
-        Dir.entries(path)[2..-1].each do |c|
-          print "#{c}\t"
-        end
+      Dir.entries(path)[2..-1].each do |c|
+        print "#{c}\t"
       end
-      puts
+      print "\n"
     rescue Errno::ENOENT
       puts "ls: #{path}: No such file or directory"
     end
