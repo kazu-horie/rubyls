@@ -3,7 +3,8 @@ RSpec.describe Rubyls do
     expect(Rubyls::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  it "output entries within current dir" do
+    expected = output(`ls .`.gsub(/\n/, "\t") + "\n").to_stdout
+    expect { Rubyls.ls('.') }.to expected
   end
 end
