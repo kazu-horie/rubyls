@@ -3,8 +3,7 @@ require "rubyls/version"
 module Rubyls
   class Error < StandardError; end
 
-  def self.ls(path = '.')
-    path.nil?
+  def self.ls(path)
     begin
       if RUBY_VERSION.to_f >= 2.5
         Dir.children(path).each do |c|
