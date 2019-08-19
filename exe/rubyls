@@ -2,5 +2,4 @@
 
 require 'rubyls'
 
-path = ARGV[0] ? ARGV[0] : '.'
-Rubyls.ls(path)
+Rubyls.ls(path: ARGV[0] || '.')

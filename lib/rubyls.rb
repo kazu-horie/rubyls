@@ -3,14 +3,15 @@ require "rubyls/version"
 module Rubyls
   class Error < StandardError; end
 
-  def self.ls(path)
+  def self.ls(path: '.')
     begin
-      Dir.entries(path)[2..-1].each do |c|
-        print "#{c}\t"
-      end
-      print "\n"
+      entries = Dir.entries(path)
     rescue Errno::ENOENT
-      puts "ls: #{path}: No such file or directory"
+      print "ls: #{path}: No such file or directory\n"
+      return
     end
+    sorted = entries.sort
+    general = sorted.reject { |entry| entry.match(/^\./) }
+    print general.join("\t") + "\n"
   end
 end
