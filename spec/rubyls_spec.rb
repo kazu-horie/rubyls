@@ -1,26 +1,22 @@
 RSpec.describe Rubyls do
   describe '.ls' do
-    it "has a version number" do
-      expect(Rubyls::VERSION).not_to be nil
+    it 'return entries' do
+      allow(Dir).to receive(:entries).and_return(['.', '..', 'dir', 'file'])
+      expect(Rubyls.ls(path: '.')).to eq "dir\tfile\n"
     end
 
-    it "output entries within current dir" do
-      expected = output(`ls .`.chomp.gsub(/\n/, "\t") + "\n").to_stdout
-
-      expect { Rubyls.ls(path: '.') }.to expected
+    it 'return sorted entries' do
+      allow(Dir).to receive(:entries).and_return(['.', '..', 'file', 'dir'])
+      expect(Rubyls.ls(path: '.')).to eq "dir\tfile\n"
     end
 
-    it "output entries within current dir with no arguments" do
-      expected = output(`ls .`.chomp.gsub(/\n/, "\t") + "\n").to_stdout
-
-      expect { Rubyls.ls }.to expected
+    it 'return entries with no arguments' do
+      allow(Dir).to receive(:entries).and_return(['.', '..', 'dir', 'file'])
+      expect(Rubyls.ls).to eq "dir\tfile\n"
     end
 
-    it "output error no such file or directory" do
-      path = 'nonexistent name'
-      expected = output("ls: #{path}: No such file or directory\n").to_stdout
-
-      expect { Rubyls.ls(path: path) }.to expected
+    it 'throw ArgumentError when path does not exist' do
+      expect { Rubyls.ls('nonexistent path') }.to raise_error(ArgumentError)
     end
   end
 end

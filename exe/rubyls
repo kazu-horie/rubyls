@@ -2,4 +2,8 @@
 
 require 'rubyls'
 
-Rubyls.ls(path: ARGV[0] || '.')
+begin
+  print Rubyls.ls(path: ARGV[0] || '.')
+rescue ArgumentError => e
+  print e.message
+end

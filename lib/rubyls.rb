@@ -5,10 +5,10 @@ module Rubyls
 
   def self.ls(path: '.')
     entries = Dir.entries(path)
-    sorted = entries.sort
-    general = sorted.reject { |entry| entry.match(/^\./) }
-    print general.join("\t") + "\n"
+    entries.sort!
+    entries.reject! { |entry| entry.match(/^\./) }
+    "#{entries.join("\t")}\n"
   rescue Errno::ENOENT
-    print "ls: #{path}: No such file or directory\n"
+    raise ArgumentError.new("ls: #{path}: No such file or directory\n")
   end
 end
